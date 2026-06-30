@@ -96,11 +96,6 @@
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-            box-shadow: 0 0 45px rgba(16, 185, 129, 0.6);
-        }
-
         .tagline {
             color: var(--accent);
             font-weight: 600;
@@ -187,7 +182,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+           https://formspree.io/f/xgojlkvq
             gap: 24px;
         }
 
@@ -290,20 +285,89 @@
             font-weight: 600;
         }
 
-        /* --- Insights Blog Dynamic Feed --- */
-        .post-date {
-            font-size: 11px;
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* --- Interactive Frosted Request Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1; pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid var(--accent);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-box h3 {
+            font-size: 22px;
             margin-bottom: 12px;
         }
 
-        .post-body {
+        .modal-box p {
+            font-size: 14px;
             color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
         }
 
         /* --- Footer Section --- */
@@ -330,7 +394,6 @@
 </head>
 <body>
 
-    <!-- Multi-Modal Transit System Matrix Canvas -->
     <canvas id="bg-canvas"></canvas>
 
     <!-- Hero Section -->
@@ -347,7 +410,8 @@
             </p>
             <div class="cta-group">
                 <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary">Connect on LinkedIn ↗</a>
-                <a href="Saurabh_Manoharan_Resume.pdf" download="Saurabh_Manoharan_Resume.pdf" class="btn btn-secondary">Download Resume (PDF)</a>
+                <!-- Request Access Hook Button -->
+                <button onclick="toggleModal(true)" class="btn btn-secondary">Request Resume Access</button>
             </div>
         </div>
     </header>
@@ -379,9 +443,7 @@
     <!-- Case Studies Section -->
     <main class="container">
         <h2 class="section-title" data-aos="fade-right">Featured <span>Case Studies</span></h2>
-        
         <div class="grid-layout">
-            <!-- Case Study 1 -->
             <div class="content-card" data-aos="fade-up">
                 <h4>Custom End-to-End Inventory & Stock Automation</h4>
                 <div class="project-detail-item"><strong>Challenge:</strong> Manual data entry across production and dispatch logs was creating reporting latency and data errors.</div>
@@ -389,7 +451,6 @@
                 <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
             </div>
 
-            <!-- Case Study 2 -->
             <div class="content-card" data-aos="fade-up">
                 <h4>Cross-Border EXIM & Multi-Modal Logistics Optimization</h4>
                 <div class="project-detail-item"><strong>Challenge:</strong> Managing high-stakes global trans-border freight without encountering costly port demurrage penalties.</div>
@@ -398,14 +459,32 @@
             </div>
         </div>
 
-        <!-- Logistics Live Insights Blog Feed Section -->
         <h2 class="section-title" data-aos="fade-right" style="margin-top: 60px;">Logistics & <span>Operations Insights</span></h2>
-        <div id="logistics-blog-feed" class="grid-layout">
-            <!-- JavaScript posts parse cleanly here -->
-        </div>
+        <div id="logistics-blog-feed" class="grid-layout"></div>
     </main>
 
-    <!-- Footer Section -->
+    <!-- Secure Interactive Request Access Modal -->
+    <div id="request-modal" class="modal-overlay">
+        <div class="modal-box">
+            <button onclick="toggleModal(false)" class="close-modal">×</button>
+            <h3>Secure Resume Request</h3>
+            <p>Please enter your corporate details. The access authorization request will go directly to Saurabh's dashboard.</p>
+            
+            <!-- Secure Routing Action Form -->
+            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                <div class="form-group">
+                    <label>Your Name / Company</label>
+                    <input type="text" name="recruiter_name" placeholder="e.g., John Doe (Global Logistics)" required>
+                </div>
+                <div class="form-group">
+                    <label>Corporate Email Address</label>
+                    <input type="email" name="_replyto" placeholder="name@company.com" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; border-radius:6px; margin-top:10px;">Submit Secure Request</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <div class="container" data-aos="zoom-in">
             <p>Let's optimize your global operations.</p>
@@ -420,12 +499,16 @@
     <script>
         AOS.init({ offset: 120, duration: 900, easing: 'ease-out-quad', once: true });
 
-        // ==========================================
-        //  DYNAMIC MULTI-MODAL LOGISTICS ENGINE
-        // ==========================================
+        // Modal State Controller
+        function toggleModal(open) {
+            const modal = document.getElementById('request-modal');
+            if(open) modal.classList.add('active');
+            else modal.classList.remove('active');
+        }
+
+        // Canvas Multi-Modal Logistics Logic
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
@@ -436,159 +519,55 @@
         });
 
         let freightRoutes = [];
-
         function initLogisticsNetwork() {
             freightRoutes = [];
-            
-            // 1. AIR FREIGHT ROUTES (High-Altitude Curved Flight Paths)
             for (let i = 0; i < 4; i++) {
-                freightRoutes.push({
-                    type: 'air',
-                    startX: Math.random() * (width * 0.3),
-                    startY: Math.random() * (height * 0.4),
-                    endX: width - (Math.random() * (width * 0.3)),
-                    endY: height - (Math.random() * (height * 0.4)),
-                    cpX: width * 0.5,
-                    cpY: -50, // Peak curve calculation altitude
-                    progress: Math.random(),
-                    speed: 0.003 + Math.random() * 0.002
-                });
+                freightRoutes.push({ type: 'air', startX: Math.random()*(width*0.3), startY: Math.random()*(height*0.4), endX: width-(Math.random()*(width*0.3)), endY: height-(Math.random()*(height*0.4)), cpX: width*0.5, cpY: -50, progress: Math.random(), speed: 0.003+Math.random()*0.002 });
             }
-
-            // 2. SEA FREIGHT LANES (Deep Ocean Shipping Corridors)
-            const seaYLines = [height * 0.25, height * 0.55, height * 0.85];
-            seaYLines.forEach(yLoc => {
-                freightRoutes.push({
-                    type: 'sea',
-                    startX: -50,
-                    startY: yLoc,
-                    endX: width + 50,
-                    endY: yLoc + (Math.random() * 40 - 20),
-                    progress: Math.random(),
-                    speed: 0.0006 + Math.random() * 0.0005 // Heavy bulk transport pacing
-                });
+            [height*0.25, height*0.55, height*0.85].forEach(yLoc => {
+                freightRoutes.push({ type: 'sea', startX: -50, startY: yLoc, endX: width+50, endY: yLoc+(Math.random()*40-20), progress: Math.random(), speed: 0.0006+Math.random()*0.0005 });
             });
-
-            // 3. ROAD FREIGHT HIGHWAYS (Snappy Inter-City Truck Networks)
             for (let i = 0; i < 6; i++) {
-                let xAnchor = width * (0.15 + i * 0.15);
-                freightRoutes.push({
-                    type: 'road',
-                    startX: xAnchor,
-                    startY: 0,
-                    endX: xAnchor + (Math.random() * 60 - 30),
-                    endY: height,
-                    progress: Math.random(),
-                    speed: 0.002 + Math.random() * 0.002
-                });
+                let xAnchor = width*(0.15+i*0.15);
+                freightRoutes.push({ type: 'road', startX: xAnchor, startY: 0, endX: xAnchor+(Math.random()*60-30), endY: height, progress: Math.random(), speed: 0.002+Math.random()*0.002 });
             }
         }
-
-        // Quadratic Bezier Curve Helper for Flight Trajectories
-        function getBezierPoint(t, sx, sy, cpx, cpy, ex, ey) {
-            return {
-                x: (1 - t) * (1 - t) * sx + 2 * (1 - t) * t * cpx + t * t * ex,
-                y: (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * cpy + t * t * ey
-            };
-        }
+        function getBezierPoint(t, sx, sy, cpx, cpy, ex, ey) { return { x: (1-t)*(1-t)*sx + 2*(1-t)*t*cpx + t*t*ex, y: (1-t)*(1-t)*sy + 2*(1-t)*t*cpy + t*t*ey }; }
 
         function drawLogisticsNetwork() {
             ctx.clearRect(0, 0, width, height);
-
             freightRoutes.forEach(route => {
-                // Advance transit progress
                 route.progress += route.speed;
                 if (route.progress >= 1) route.progress = 0;
-
                 let currentPos = { x: 0, y: 0 };
-
                 if (route.type === 'air') {
-                    // Render Air Laneways
-                    ctx.beginPath();
-                    ctx.moveTo(route.startX, route.startY);
-                    ctx.quadraticCurveTo(route.cpX, route.cpY, route.endX, route.endY);
-                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.03)';
-                    ctx.setLineDash([4, 12]);
-                    ctx.stroke();
-                    ctx.setLineDash([]); // Reset line default
-
+                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.quadraticCurveTo(route.cpX, route.cpY, route.endX, route.endY);
+                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.03)'; ctx.setLineDash([4, 12]); ctx.stroke(); ctx.setLineDash([]);
                     currentPos = getBezierPoint(route.progress, route.startX, route.startY, route.cpX, route.cpY, route.endX, route.endY);
-                    
-                    // Draw Jet Packet
-                    ctx.beginPath();
-                    ctx.arc(currentPos.x, currentPos.y, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(52, 211, 153, ${0.5 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
-                    ctx.fill();
-
+                    ctx.beginPath(); ctx.arc(currentPos.x, currentPos.y, 3, 0, Math.PI*2); ctx.fillStyle = `rgba(52, 211, 153, ${0.5*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fill();
                 } else if (route.type === 'sea') {
-                    // Render Sea Lanes
-                    ctx.beginPath();
-                    ctx.moveTo(route.startX, route.startY);
-                    ctx.lineTo(route.endX, route.endY);
-                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.02)';
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-
-                    currentPos.x = route.startX + (route.endX - route.startX) * route.progress;
-                    currentPos.y = route.startY + (route.endY - route.startY) * route.progress;
-
-                    // Draw Heavy Container Vessel Square Node
-                    ctx.fillStyle = `rgba(16, 185, 129, ${0.3 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
-                    ctx.fillRect(currentPos.x - 4, currentPos.y - 2, 8, 4);
-
+                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.lineTo(route.endX, route.endY); ctx.strokeStyle = 'rgba(16, 185, 129, 0.02)'; ctx.stroke();
+                    currentPos.x = route.startX + (route.endX - route.startX)*route.progress; currentPos.y = route.startY + (route.endY - route.startY)*route.progress;
+                    ctx.fillStyle = `rgba(16, 185, 129, ${0.3*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fillRect(currentPos.x-4, currentPos.y-2, 8, 4);
                 } else if (route.type === 'road') {
-                    // Render Road Infrastructure
-                    ctx.beginPath();
-                    ctx.moveTo(route.startX, route.startY);
-                    ctx.lineTo(route.endX, route.endY);
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-
-                    currentPos.x = route.startX + (route.endX - route.startX) * route.progress;
-                    currentPos.y = route.startY + (route.endY - route.startY) * route.progress;
-
-                    // Draw Rapid Ground Dispatch Unit
-                    ctx.beginPath();
-                    ctx.arc(currentPos.x, currentPos.y, 2, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(16, 185, 129, ${0.25 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
-                    ctx.fill();
+                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.lineTo(route.endX, route.endY); ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)'; ctx.stroke();
+                    currentPos.x = route.startX + (route.endX - route.startX)*route.progress; currentPos.y = route.startY + (route.endY - route.startY)*route.progress;
+                    ctx.beginPath(); ctx.arc(currentPos.x, currentPos.y, 2, 0, Math.PI*2); ctx.fillStyle = `rgba(16, 185, 129, ${0.25*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fill();
                 }
             });
-
             requestAnimationFrame(drawLogisticsNetwork);
         }
+        initLogisticsNetwork(); drawLogisticsNetwork();
 
-        // Initialize and Run
-        initLogisticsNetwork();
-        drawLogisticsNetwork();
-
-        // ==========================================
-        //  DYNAMIC BLOG POST FEED INTERACTION
-        // ==========================================
+        // Blog Data
         const logisticsPosts = [
-            {
-                date: "June 28, 2026",
-                title: "Overcoming Port Demurrage Bottlenecks in Trans-Border Cargo",
-                content: "Delays in multi-modal shipping can cost thousands in unexpected port storage assessments. By implementing cloud-based documentation sharing setups, operational teams can send clearing data hours before the container touches the port gate, preventing administrative holdups entirely."
-            },
-            {
-                date: "May 14, 2026",
-                title: "Why VBA Automation Beats Bulky ERP Workflows for Daily Stock Lists",
-                content: "While major enterprise ERP software tracks overall inventory assets well, they lack the speed required for dynamic on-site operational tracking. Custom Excel scripts paired with localized relational databases can execute sub-second calculations and instant standard-format distributions cleanly without system lag."
-            }
+            { date: "June 28, 2026", title: "Overcoming Port Demurrage Bottlenecks in Trans-Border Cargo", content: "Delays in multi-modal shipping can cost thousands in unexpected port storage assessments..." },
+            { date: "May 14, 2026", title: "Why VBA Automation Beats Bulky ERP Workflows for Daily Stock Lists", content: "While major enterprise ERP software tracks overall inventory assets well, they lack the speed required..." }
         ];
-
         const feedContainer = document.getElementById('logistics-blog-feed');
         logisticsPosts.forEach(post => {
-            const article = document.createElement('article');
-            article.className = 'content-card';
-            article.setAttribute('data-aos', 'fade-up');
-            article.innerHTML = `
-                <div class="post-date">${post.date}</div>
-                <h4>${post.title}</h4>
-                <p class="post-body">${post.content}</p>
-            `;
+            const article = document.createElement('article'); article.className = 'content-card'; article.setAttribute('data-aos', 'fade-up');
+            article.innerHTML = `<div class="post-date">${post.date}</div><h4>${post.title}</h4><p class="post-body">${post.content}</p>`;
             feedContainer.appendChild(article);
         });
     </script>
