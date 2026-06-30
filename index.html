@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurabh Manoharan | SCM & Logistics Portfolio</title>
-    <!-- Google Fonts for crisp, premium typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Scroll Animation Library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
     <style>
@@ -70,6 +68,9 @@
             width: 150px;
             height: 150px;
             margin: 0 auto 24px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .avatar {
@@ -80,7 +81,37 @@
             border: 2px solid var(--accent);
             box-shadow: 0 0 30px var(--accent-glow);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            opacity: 0; /* Hidden initially, fades in cleanly if link resolves */
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 0 45px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Premium Fallback Design seen if LinkedIn blocks the stream */
+        .avatar-fallback {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #111827 0%, #0b0f19 100%);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            position: absolute;
+            top: 0;
+            left: 0;
             z-index: 2;
         }
 
@@ -95,11 +126,6 @@
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .avatar:hover {
-            transform: scale(1.05) rotate(3deg);
-            box-shadow: 0 0 45px rgba(16, 185, 129, 0.6);
-        }
 
         .tagline {
             color: var(--accent);
@@ -296,305 +322,4 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(3, 7, 18, 0.85);
             backdrop-filter: blur(8px);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1; pointer-events: auto;
-        }
-
-        .modal-box {
-            background: #0f172a;
-            border: 1px solid var(--accent);
-            padding: 40px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
-            transform: scale(0.9);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-
-        .modal-box h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-
-        .modal-box p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 6px;
-            color: var(--text-main);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            background: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: white;
-            font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 16px; right: 16px;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* --- Insights Blog Dynamic Feed --- */
-        .post-date {
-            font-size: 11px;
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-
-        .post-body {
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 300;
-        }
-
-        /* --- Footer Section --- */
-        footer {
-            background-color: #02040a;
-            border-top: 1px solid var(--border-color);
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        footer p {
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            font-size: 16px;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            header { padding: 80px 0 40px 0; }
-            .cta-group { flex-direction: column; }
-            .content-card { padding: 24px; }
-        }
-    </style>
-</head>
-<body>
-
-    <canvas id="bg-canvas"></canvas>
-
-    <!-- Hero Section -->
-    <header>
-        <div class="container" data-aos="fade-up" data-aos-duration="1200">
-            <div class="avatar-container">
-                <!-- Mobile-Optimized Autoupdating LinkedIn Image Tokenizer Pipeline -->
-                <img src="https://unavatar.io/linkedin/saurabhmanoharan" 
-                     alt="Saurabh Manoharan" 
-                     class="avatar" 
-                     onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400';">
-            </div>
-            
-            <div class="tagline">Logistics & Supply Chain Leader</div>
-            <h1>Optimizing Global Supply Chains, EXIM Operations, and Digital Automation</h1>
-            <p class="summary">
-                Result-driven Supply Chain professional with an MBA and advanced expertise in Export-Import (EXIM) compliance, multi-modal international logistics, and end-to-end operational management. Specialist in transforming traditional supply chain workflows into automated, error-free systems.
-            </p>
-            <div class="cta-group">
-                <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary">Connect on LinkedIn ↗</a>
-                <!-- Request Access Hook Button -->
-                <button onclick="toggleModal(true)" class="btn btn-secondary">Request Resume Access</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Metrics Ticker Area -->
-    <section class="ticker-section" data-aos="fade-up" data-aos-delay="100">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>4+ Years</h3>
-                    <p>SCM & Logistics Experience</p>
-                </div>
-                <div class="stat-card">
-                    <h3>100%</h3>
-                    <p>VBA & Inventory Automation</p>
-                </div>
-                <div class="stat-card">
-                    <h3>EXIM</h3>
-                    <p>Cross-Border Specialist</p>
-                </div>
-                <div class="stat-card">
-                    <h3>MBA</h3>
-                    <p>Supply Chain Focus</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <main class="container">
-        <h2 class="section-title" data-aos="fade-right">Featured <span>Case Studies</span></h2>
-        <div class="grid-layout">
-            <div class="content-card" data-aos="fade-up">
-                <h4>Custom End-to-End Inventory & Stock Automation</h4>
-                <div class="project-detail-item"><strong>Challenge:</strong> Manual data entry across production and dispatch logs was creating reporting latency and data errors.</div>
-                <div class="project-detail-item"><strong>Action:</strong> Engineered an automated ecosystem utilizing Excel VBA and MS Access for instant PDF dispatches and live reporting.</div>
-                <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
-            </div>
-
-            <div class="content-card" data-aos="fade-up">
-                <h4>Cross-Border EXIM & Multi-Modal Logistics Optimization</h4>
-                <div class="project-detail-item"><strong>Challenge:</strong> Managing high-stakes global trans-border freight without encountering costly port demurrage penalties.</div>
-                <div class="project-detail-item"><strong>Action:</strong> Managed specialized customs clearances and international documentation frameworks via a unified SharePoint infrastructure.</div>
-                <div class="project-detail-item"><strong>Impact:</strong> Achieved a 0% compliance delay record and slashed clearing agent communication lag by 35%.</div>
-            </div>
-        </div>
-
-        <h2 class="section-title" data-aos="fade-right" style="margin-top: 60px;">Logistics & <span>Operations Insights</span></h2>
-        <div id="logistics-blog-feed" class="grid-layout"></div>
-    </main>
-
-    <!-- Secure Interactive Request Access Modal -->
-    <div id="request-modal" class="modal-overlay">
-        <div class="modal-box">
-            <button onclick="toggleModal(false)" class="close-modal">×</button>
-            <h3>Secure Resume Request</h3>
-            <p>Please enter your corporate details. The access authorization request will go directly to Saurabh's dashboard.</p>
-            
-            <!-- Live Active Formspree Routing Endpoint Link -->
-            <form action="https://formspree.io/f/xgojlkvq" method="POST">
-                <div class="form-group">
-                    <label>Your Name / Company</label>
-                    <input type="text" name="recruiter_name" placeholder="e.g., John Doe (Global Logistics)" required>
-                </div>
-                <div class="form-group">
-                    <label>Corporate Email Address</label>
-                    <input type="email" name="_replyto" placeholder="name@company.com" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%; border-radius:6px; margin-top:10px;">Submit Secure Request</button>
-            </form>
-        </div>
-    </div>
-
-    <footer>
-        <div class="container" data-aos="zoom-in">
-            <p>Let's optimize your global operations.</p>
-            <div class="cta-group">
-                <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary" style="background-color: transparent; border: 1px solid var(--accent); color: var(--accent);">Let's Talk on LinkedIn</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Initialize Animation Setup Scripts -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({ offset: 120, duration: 900, easing: 'ease-out-quad', once: true });
-
-        // Modal State Controller
-        function toggleModal(open) {
-            const modal = document.getElementById('request-modal');
-            if(open) modal.classList.add('active');
-            else modal.classList.remove('active');
-        }
-
-        // Canvas Multi-Modal Logistics Logic
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initLogisticsNetwork();
-        });
-
-        let freightRoutes = [];
-        function initLogisticsNetwork() {
-            freightRoutes = [];
-            for (let i = 0; i < 4; i++) {
-                freightRoutes.push({ type: 'air', startX: Math.random()*(width*0.3), startY: Math.random()*(height*0.4), endX: width-(Math.random()*(width*0.3)), endY: height-(Math.random()*(height*0.4)), cpX: width*0.5, cpY: -50, progress: Math.random(), speed: 0.003+Math.random()*0.002 });
-            }
-            [height*0.25, height*0.55, height*0.85].forEach(yLoc => {
-                freightRoutes.push({ type: 'sea', startX: -50, startY: yLoc, endX: width+50, endY: yLoc+(Math.random()*40-20), progress: Math.random(), speed: 0.0006+Math.random()*0.0005 });
-            });
-            for (let i = 0; i < 6; i++) {
-                let xAnchor = width*(0.15+i*0.15);
-                freightRoutes.push({ type: 'road', startX: xAnchor, startY: 0, endX: xAnchor+(Math.random()*60-30), endY: height, progress: Math.random(), speed: 0.002+Math.random()*0.002 });
-            }
-        }
-        function getBezierPoint(t, sx, sy, cpx, cpy, ex, ey) { return { x: (1-t)*(1-t)*sx + 2*(1-t)*t*cpx + t*t*ex, y: (1-t)*(1-t)*sy + 2*(1-t)*t*cpy + t*t*ey }; }
-
-        function drawLogisticsNetwork() {
-            ctx.clearRect(0, 0, width, height);
-            freightRoutes.forEach(route => {
-                route.progress += route.speed;
-                if (route.progress >= 1) route.progress = 0;
-                let currentPos = { x: 0, y: 0 };
-                if (route.type === 'air') {
-                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.quadraticCurveTo(route.cpX, route.cpY, route.endX, route.endY);
-                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.03)'; ctx.setLineDash([4, 12]); ctx.stroke(); ctx.setLineDash([]);
-                    currentPos = getBezierPoint(route.progress, route.startX, route.startY, route.cpX, route.cpY, route.endX, route.endY);
-                    ctx.beginPath(); ctx.arc(currentPos.x, currentPos.y, 3, 0, Math.PI*2); ctx.fillStyle = `rgba(52, 211, 153, ${0.5*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fill();
-                } else if (route.type === 'sea') {
-                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.lineTo(route.endX, route.endY); ctx.strokeStyle = 'rgba(16, 185, 129, 0.02)'; ctx.stroke();
-                    currentPos.x = route.startX + (route.endX - route.startX)*route.progress; currentPos.y = route.startY + (route.endY - route.startY)*route.progress;
-                    ctx.fillStyle = `rgba(16, 185, 129, ${0.3*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fillRect(currentPos.x-4, currentPos.y-2, 8, 4);
-                } else if (route.type === 'road') {
-                    ctx.beginPath(); ctx.moveTo(route.startX, route.startY); ctx.lineTo(route.endX, route.endY); ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)'; ctx.stroke();
-                    currentPos.x = route.startX + (route.endX - route.startX)*route.progress; currentPos.y = route.startY + (route.endY - route.startY)*route.progress;
-                    ctx.beginPath(); ctx.arc(currentPos.x, currentPos.y, 2, 0, Math.PI*2); ctx.fillStyle = `rgba(16, 185, 129, ${0.25*(1-Math.abs(0.5-route.progress)*2)})`; ctx.fill();
-                }
-            });
-            requestAnimationFrame(drawLogisticsNetwork);
-        }
-        initLogisticsNetwork(); drawLogisticsNetwork();
-
-        // Dynamic Insights Feed Data Container
-        const logisticsPosts = [
-            { date: "June 28, 2026", title: "Overcoming Port Demurrage Bottlenecks in Trans-Border Cargo", content: "Delays in multi-modal shipping can cost thousands in unexpected port storage assessments. By implementing cloud-based documentation sharing setups, operational teams can send clearing data hours before the container touches the port gate, preventing administrative holdups entirely." },
-            { date: "May 14, 2026", title: "Why VBA Automation Beats Bulky ERP Workflows for Daily Stock Lists", content: "While major enterprise ERP software tracks overall inventory assets well, they lack the speed required for dynamic on-site operational tracking. Custom Excel scripts paired with localized relational databases can execute sub-second calculations and instant standard-format distributions cleanly without system lag." }
-        ];
-        const feedContainer = document.getElementById('logistics-blog-feed');
-        logisticsPosts.forEach(post => {
-            const article = document.createElement('article'); article.className = 'content-card'; article.setAttribute('data-aos', 'fade-up');
-            article.innerHTML = `<div class="post-date">${post.date}</div><h4>${post.title}</h4><p class="post-body">${post.content}</p>`;
-            feedContainer.appendChild(article);
-        });
-    </script>
-</body>
-</html>
+            z
