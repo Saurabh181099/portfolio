@@ -41,7 +41,7 @@
             position: relative;
         }
 
-        /* --- Global Supply Chain Animated Canvas Background --- */
+        /* --- Multi-Modal Logistics Network Canvas --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -330,7 +330,7 @@
 </head>
 <body>
 
-    <!-- Supply Chain Transit System Background Matrix -->
+    <!-- Multi-Modal Transit System Matrix Canvas -->
     <canvas id="bg-canvas"></canvas>
 
     <!-- Hero Section -->
@@ -384,7 +384,7 @@
             <!-- Case Study 1 -->
             <div class="content-card" data-aos="fade-up">
                 <h4>Custom End-to-End Inventory & Stock Automation</h4>
-                <div class="project-detail-item"><strong>Challenge:</strong> Manual entry across production and dispatch logs was creating reporting latency and data errors.</div>
+                <div class="project-detail-item"><strong>Challenge:</strong> Manual data entry across production and dispatch logs was creating reporting latency and data errors.</div>
                 <div class="project-detail-item"><strong>Action:</strong> Engineered an automated ecosystem utilizing Excel VBA and MS Access for instant PDF dispatches and live reporting.</div>
                 <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
             </div>
@@ -421,7 +421,7 @@
         AOS.init({ offset: 120, duration: 900, easing: 'ease-out-quad', once: true });
 
         // ==========================================
-        //  DYNAMIC GLOBAL SUPPLY CHAIN ROUTER CANVAS
+        //  DYNAMIC MULTI-MODAL LOGISTICS ENGINE
         // ==========================================
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -432,96 +432,136 @@
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-            initSupplyChain();
+            initLogisticsNetwork();
         });
 
-        // Fixed Distribution Nodes (Hubs)
-        let hubs = [];
-        // Animated Cargo Transit Packets
-        let packets = [];
+        let freightRoutes = [];
 
-        function initSupplyChain() {
-            hubs = [];
-            packets = [];
+        function initLogisticsNetwork() {
+            freightRoutes = [];
             
-            // Define static distribution hubs evenly distributed across screen space
-            const baseHubsCount = 12;
-            for (let i = 0; i < baseHubsCount; i++) {
-                hubs.push({
-                    x: Math.random() * (width - 100) + 50,
-                    y: Math.random() * (height - 100) + 50,
-                    radius: Math.random() * 3 + 2
+            // 1. AIR FREIGHT ROUTES (High-Altitude Curved Flight Paths)
+            for (let i = 0; i < 4; i++) {
+                freightRoutes.push({
+                    type: 'air',
+                    startX: Math.random() * (width * 0.3),
+                    startY: Math.random() * (height * 0.4),
+                    endX: width - (Math.random() * (width * 0.3)),
+                    endY: height - (Math.random() * (height * 0.4)),
+                    cpX: width * 0.5,
+                    cpY: -50, // Peak curve calculation altitude
+                    progress: Math.random(),
+                    speed: 0.003 + Math.random() * 0.002
                 });
             }
 
-            // Generate active delivery routes and packet streams
-            hubs.forEach((startHub, i) => {
-                // Link each hub to two adjacent logistics destinations
-                for (let r = 0; r < 2; r++) {
-                    let targetIndex = (i + Math.floor(Math.random() * (hubs.length - 1)) + 1) % hubs.length;
-                    let endHub = hubs[targetIndex];
-                    
-                    // Create multiple pacing packets per route line
-                    packets.push({
-                        start: startHub,
-                        end: endHub,
-                        progress: Math.random(),
-                        speed: Math.random() * 0.003 + 0.0015,
-                        size: Math.random() * 2 + 1.5
-                    });
-                }
+            // 2. SEA FREIGHT LANES (Deep Ocean Shipping Corridors)
+            const seaYLines = [height * 0.25, height * 0.55, height * 0.85];
+            seaYLines.forEach(yLoc => {
+                freightRoutes.push({
+                    type: 'sea',
+                    startX: -50,
+                    startY: yLoc,
+                    endX: width + 50,
+                    endY: yLoc + (Math.random() * 40 - 20),
+                    progress: Math.random(),
+                    speed: 0.0006 + Math.random() * 0.0005 // Heavy bulk transport pacing
+                });
             });
+
+            // 3. ROAD FREIGHT HIGHWAYS (Snappy Inter-City Truck Networks)
+            for (let i = 0; i < 6; i++) {
+                let xAnchor = width * (0.15 + i * 0.15);
+                freightRoutes.push({
+                    type: 'road',
+                    startX: xAnchor,
+                    startY: 0,
+                    endX: xAnchor + (Math.random() * 60 - 30),
+                    endY: height,
+                    progress: Math.random(),
+                    speed: 0.002 + Math.random() * 0.002
+                });
+            }
         }
 
-        function drawSupplyChain() {
+        // Quadratic Bezier Curve Helper for Flight Trajectories
+        function getBezierPoint(t, sx, sy, cpx, cpy, ex, ey) {
+            return {
+                x: (1 - t) * (1 - t) * sx + 2 * (1 - t) * t * cpx + t * t * ex,
+                y: (1 - t) * (1 - t) * sy + 2 * (1 - t) * t * cpy + t * t * ey
+            };
+        }
+
+        function drawLogisticsNetwork() {
             ctx.clearRect(0, 0, width, height);
 
-            // 1. Draw static route transit pipelines
-            ctx.beginPath();
-            packets.forEach(p => {
-                ctx.moveTo(p.start.x, p.start.y);
-                ctx.lineTo(p.end.x, p.end.y);
-            });
-            ctx.strokeStyle = 'rgba(16, 185, 129, 0.04)';
-            ctx.lineWidth = 1;
-            ctx.stroke();
+            freightRoutes.forEach(route => {
+                // Advance transit progress
+                route.progress += route.speed;
+                if (route.progress >= 1) route.progress = 0;
 
-            // 2. Animate sliding logistics freight packets
-            packets.forEach(p => {
-                p.progress += p.speed;
-                if (p.progress >= 1) {
-                    p.progress = 0; // Seamless route recycling
+                let currentPos = { x: 0, y: 0 };
+
+                if (route.type === 'air') {
+                    // Render Air Laneways
+                    ctx.beginPath();
+                    ctx.moveTo(route.startX, route.startY);
+                    ctx.quadraticCurveTo(route.cpX, route.cpY, route.endX, route.endY);
+                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.03)';
+                    ctx.setLineDash([4, 12]);
+                    ctx.stroke();
+                    ctx.setLineDash([]); // Reset line default
+
+                    currentPos = getBezierPoint(route.progress, route.startX, route.startY, route.cpX, route.cpY, route.endX, route.endY);
+                    
+                    // Draw Jet Packet
+                    ctx.beginPath();
+                    ctx.arc(currentPos.x, currentPos.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(52, 211, 153, ${0.5 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
+                    ctx.fill();
+
+                } else if (route.type === 'sea') {
+                    // Render Sea Lanes
+                    ctx.beginPath();
+                    ctx.moveTo(route.startX, route.startY);
+                    ctx.lineTo(route.endX, route.endY);
+                    ctx.strokeStyle = 'rgba(16, 185, 129, 0.02)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    currentPos.x = route.startX + (route.endX - route.startX) * route.progress;
+                    currentPos.y = route.startY + (route.endY - route.startY) * route.progress;
+
+                    // Draw Heavy Container Vessel Square Node
+                    ctx.fillStyle = `rgba(16, 185, 129, ${0.3 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
+                    ctx.fillRect(currentPos.x - 4, currentPos.y - 2, 8, 4);
+
+                } else if (route.type === 'road') {
+                    // Render Road Infrastructure
+                    ctx.beginPath();
+                    ctx.moveTo(route.startX, route.startY);
+                    ctx.lineTo(route.endX, route.endY);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    currentPos.x = route.startX + (route.endX - route.startX) * route.progress;
+                    currentPos.y = route.startY + (route.endY - route.startY) * route.progress;
+
+                    // Draw Rapid Ground Dispatch Unit
+                    ctx.beginPath();
+                    ctx.arc(currentPos.x, currentPos.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(16, 185, 129, ${0.25 * (1 - Math.abs(0.5 - route.progress) * 2)})`;
+                    ctx.fill();
                 }
-
-                // Interpolate linear coordinates along line segments
-                const currentX = p.start.x + (p.end.x - p.start.x) * p.progress;
-                const currentY = p.start.y + (p.end.y - p.start.y) * p.progress;
-
-                ctx.beginPath();
-                ctx.arc(currentX, currentY, p.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(16, 185, 129, ${0.4 * (1 - Math.abs(0.5 - p.progress) * 2)})`; // Smooth glow fading
-                ctx.fill();
             });
 
-            // 3. Draw static distribution point glow zones
-            hubs.forEach(h => {
-                ctx.beginPath();
-                ctx.arc(h.x, h.y, h.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(31, 41, 55, 0.4)';
-                ctx.fill();
-                
-                ctx.beginPath();
-                ctx.arc(h.x, h.y, h.radius - 1, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
-                ctx.fill();
-            });
-
-            requestAnimationFrame(drawSupplyChain);
+            requestAnimationFrame(drawLogisticsNetwork);
         }
 
-        // Boot system canvas arrays
-        initSupplyChain();
-        drawSupplyChain();
+        // Initialize and Run
+        initLogisticsNetwork();
+        drawLogisticsNetwork();
 
         // ==========================================
         //  DYNAMIC BLOG POST FEED INTERACTION
