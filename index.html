@@ -16,7 +16,7 @@
             --bg-color: #FAFAFA;
             --text-main: #1F2937;
             --text-muted: #4B5563;
-            --accent: #059669; /* Emerald Green */
+            --accent: #059669; /* Premium Emerald Green */
             --accent-hover: #047857;
             --card-bg: #FFFFFF;
         }
@@ -43,8 +43,23 @@
 
         /* --- Hero Section --- */
         header {
-            padding: 120px 0 80px 0;
+            padding: 100px 0 80px 0;
             text-align: center;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
         }
 
         .tagline {
@@ -62,6 +77,7 @@
             line-height: 1.2;
             margin-bottom: 24px;
             color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .summary {
@@ -85,11 +101,13 @@
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 15px;
+            cursor: pointer;
         }
 
         .btn-primary {
             background-color: var(--accent);
             color: white;
+            border: none;
         }
 
         .btn-primary:hover {
@@ -111,7 +129,8 @@
         /* --- Ticker / Stats Section --- */
         .ticker-section {
             background: white;
-            border-y: 1px solid #E5E7EB;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
             padding: 40px 0;
             margin-bottom: 80px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
@@ -211,7 +230,7 @@
 
         @media (max-width: 768px) {
             h1 { font-size: 32px; }
-            header { padding: 80px 0 40px 0; }
+            header { padding: 60px 0 40px 0; }
             .cta-group { flex-direction: column; }
         }
     </style>
@@ -221,6 +240,9 @@
     <!-- Hero Section -->
     <header>
         <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <!-- Updated Direct LinkedIn Image Source -->
+            <img src="https://media.licdn.com/dms/image/v2/D4D03AQHphVUcXP1zTw/profile-displayphoto-shrink_200_200/B4DZbsTLzKHQAc-/0/1747721185674?e=1784160000&v=beta&t=W9lgcrg6Td-CuRDjoJPbGvULSMKgrE6HWPg06KV32qA" alt="Saurabh Manoharan" class="avatar">
+            
             <div class="tagline">Logistics & Supply Chain Leader</div>
             <h1>Optimizing Global Supply Chains, EXIM Operations, and Digital Automation</h1>
             <p class="summary">
@@ -228,7 +250,8 @@
             </p>
             <div class="cta-group">
                 <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary">Connect on LinkedIn ↗</a>
-                <a href="Saurabh_Manoharan_Resume.pdf" download class="btn btn-secondary">Download Resume (PDF)</a>
+                <!-- Direct Instant Download Link -->
+                <a href="Saurabh_Manoharan_Resume.pdf" download="Saurabh_Manoharan_Resume.pdf" class="btn btn-secondary">Download Resume (PDF)</a>
             </div>
         </div>
     </header>
