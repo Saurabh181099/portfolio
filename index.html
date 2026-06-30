@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saurabh Manoharan | SCM & Logistics Portfolio</title>
-    <!-- Google Fonts for sleek typography -->
+    <!-- Google Fonts for crisp, premium typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Scroll Animation Library -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
     <style>
         :root {
-            --bg-color: #0B0F19; /* Deep, modern dark navy/black */
-            --bg-card: #111827;  /* Sleek contrasting charcoal for panels */
+            --bg-color: #030712; /* Deep space black */
+            --bg-card: rgba(17, 24, 39, 0.7); /* Frosted glass panel base */
             --text-main: #F9FAFB;
             --text-muted: #9CA3AF;
-            --accent: #10B981; /* High-visibility Neon Emerald Green */
-            --accent-hover: #059669;
-            --border-color: #1F2937;
+            --accent: #10B981; /* High-glow Emerald Green */
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --border-color: rgba(31, 41, 55, 0.6);
         }
 
         * {
@@ -28,12 +28,28 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- High-End Interactive Canvas Background --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -42,50 +58,80 @@
             padding: 0 24px;
         }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section & Global Elements --- */
         header {
-            padding: 100px 0 80px 0;
+            padding: 120px 0 80px 0;
             text-align: center;
+            position: relative;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 24px auto;
         }
 
         .avatar {
-            width: 140px;
-            height: 140px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 24px;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
-            transition: transform 0.3s ease;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
         }
 
+        .avatar-container::after {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            border: 1px dashed rgba(16, 185, 129, 0.5);
+            animation: spin 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         .avatar:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 0 45px rgba(16, 185, 129, 0.6);
         }
 
         .tagline {
             color: var(--accent);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         h1 {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.25;
             margin-bottom: 24px;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #FFFFFF, #9CA3AF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .summary {
-            font-size: 18px;
+            font-size: 19px;
             color: var(--text-muted);
-            max-width: 800px;
+            max-width: 820px;
             margin: 0 auto 40px auto;
+            font-weight: 300;
         }
 
         .cta-group {
@@ -96,84 +142,97 @@
 
         .btn {
             display: inline-block;
-            padding: 14px 28px;
+            padding: 14px 32px;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 15px;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
             background-color: var(--accent);
-            color: #0B0F19; /* High-contrast background font text */
+            color: #030712;
             border: none;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
+            background-color: #34d399;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(16, 185, 129, 0.5);
         }
 
         .btn-secondary {
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
         }
 
         .btn-secondary:hover {
             background-color: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            border-color: var(--accent);
         }
 
-        /* --- Ticker / Stats Section --- */
+        /* --- Metric Cards --- */
         .ticker-section {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
             padding: 40px 0;
             margin-bottom: 80px;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 32px 24px;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+            transform: scale(1.02);
         }
 
         .stat-card h3 {
-            font-size: 32px;
+            font-size: 36px;
             color: var(--accent);
             margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--accent-glow);
         }
 
         .stat-card p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
-            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        /* --- Section Titles --- */
+        /* --- Content Layout Containers --- */
         .section-title {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 700;
             margin-bottom: 40px;
-            position: relative;
+            letter-spacing: -0.5px;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 4px;
-            background: var(--accent);
-            margin-top: 8px;
-            border-radius: 2px;
+        .section-title span {
+            color: var(--accent);
         }
 
-        /* --- Grid & Layout Components --- */
         .grid-layout {
             display: grid;
             grid-template-columns: 1fr;
@@ -183,78 +242,103 @@
 
         .content-card {
             background: var(--bg-card);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 32px;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 0;
+            background: var(--accent);
+            transition: height 0.4s ease;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .content-card:hover::before {
+            height: 100%;
         }
 
         .content-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-            border-color: #374151;
+            transform: translateX(6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(16, 185, 129, 0.3);
         }
 
         .content-card h4 {
-            font-size: 22px;
-            margin-bottom: 16px;
-            color: var(--text-main);
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
         .project-detail-item {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             font-size: 15px;
             color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
         }
 
         .project-detail-item strong {
             color: var(--text-main);
+            min-width: 110px;
             display: inline-block;
-            width: 100px;
+            font-weight: 600;
         }
 
-        /* --- Logistics Custom Feed Section --- */
+        /* --- Insights Blog Dynamic Feed --- */
         .post-date {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
         }
 
         .post-body {
             color: var(--text-muted);
             font-size: 15px;
-            white-space: pre-line; /* Keeps line breaks clean */
+            font-weight: 300;
         }
 
-        /* --- Footer --- */
+        /* --- Footer Section --- */
         footer {
-            background-color: #060911;
+            background-color: #02040a;
             border-top: 1px solid var(--border-color);
-            padding: 60px 0;
+            padding: 80px 0;
             text-align: center;
         }
 
         footer p {
             color: var(--text-muted);
-            margin-bottom: 24px;
+            margin-bottom: 32px;
+            font-size: 16px;
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 32px; }
-            header { padding: 60px 0 40px 0; }
+            h1 { font-size: 36px; }
+            header { padding: 80px 0 40px 0; }
             .cta-group { flex-direction: column; }
+            .content-card { padding: 24px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Logistics Network Particle Canvas Element -->
+    <canvas id="bg-canvas"></canvas>
+
     <!-- Hero Section -->
     <header>
-        <div class="container" data-aos="fade-up" data-aos-duration="1000">
-            <img src="https://media.licdn.com/dms/image/v2/D4D03AQHphVUcXP1zTw/profile-displayphoto-shrink_200_200/B4DZbsTLzKHQAc-/0/1747721185674?e=1784160000&v=beta&t=W9lgcrg6Td-CuRDjoJPbGvULSMKgrE6HWPg06KV32qA" alt="Saurabh Manoharan" class="avatar">
+        <div class="container" data-aos="fade-up" data-aos-duration="1200">
+            <div class="avatar-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQHphVUcXP1zTw/profile-displayphoto-shrink_200_200/B4DZbsTLzKHQAc-/0/1747721185674?e=1784160000&v=beta&t=W9lgcrg6Td-CuRDjoJPbGvULSMKgrE6HWPg06KV32qA" alt="Saurabh Manoharan" class="avatar">
+            </div>
             
             <div class="tagline">Logistics & Supply Chain Leader</div>
             <h1>Optimizing Global Supply Chains, EXIM Operations, and Digital Automation</h1>
@@ -269,7 +353,7 @@
     </header>
 
     <!-- Metrics Ticker Area -->
-    <section class="ticker-section" data-aos="fade-up">
+    <section class="ticker-section" data-aos="fade-up" data-aos-delay="100">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-card">
@@ -294,10 +378,10 @@
 
     <!-- Case Studies Section -->
     <main class="container">
-        <h2 class="section-title" data-aos="fade-right">Featured Case Studies</h2>
+        <h2 class="section-title" data-aos="fade-right">Featured <span>Case Studies</span></h2>
         
         <div class="grid-layout">
-            <!-- Project 1 -->
+            <!-- Case Study 1 -->
             <div class="content-card" data-aos="fade-up">
                 <h4>Custom End-to-End Inventory & Stock Automation</h4>
                 <div class="project-detail-item"><strong>Challenge:</strong> Manual entry across production and dispatch logs was creating reporting latency and data errors.</div>
@@ -305,7 +389,7 @@
                 <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
             </div>
 
-            <!-- Project 2 -->
+            <!-- Case Study 2 -->
             <div class="content-card" data-aos="fade-up">
                 <h4>Cross-Border EXIM & Multi-Modal Logistics Optimization</h4>
                 <div class="project-detail-item"><strong>Challenge:</strong> Managing high-stakes global trans-border freight without encountering costly port demurrage penalties.</div>
@@ -315,15 +399,15 @@
         </div>
 
         <!-- Logistics Live Insights Blog Feed Section -->
-        <h2 class="section-title" data-aos="fade-right" style="margin-top: 60px;">Logistics & Operations Insights</h2>
+        <h2 class="section-title" data-aos="fade-right" style="margin-top: 60px;">Logistics & <span>Operations Insights</span></h2>
         <div id="logistics-blog-feed" class="grid-layout">
-            <!-- Dynamic JavaScript content injects here automatically -->
+            <!-- JavaScript posts parse cleanly here -->
         </div>
     </main>
 
     <!-- Footer Section -->
     <footer>
-        <div class="container">
+        <div class="container" data-aos="zoom-in">
             <p>Let's optimize your global operations.</p>
             <div class="cta-group">
                 <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary" style="background-color: transparent; border: 1px solid var(--accent); color: var(--accent);">Let's Talk on LinkedIn</a>
@@ -331,15 +415,80 @@
         </div>
     </footer>
 
-    <!-- Initialize Animation Library -->
+    <!-- Initialize Animation Setup Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ offset: 120, duration: 800, easing: 'ease-in-out', once: true });
+        AOS.init({ offset: 120, duration: 900, easing: 'ease-out-quad', once: true });
 
         // ==========================================
-        //  LOGISTICS POSTS MANAGEMENT ENGINE
+        //  HIGH-END INTERACTIVE NETWORKING CANVAS
         // ==========================================
-        // To add a new article update, just add another object inside this bracket list:
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const particleCount = 45;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 1.5 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Interconnecting global trade node matrix lines
+            ctx.beginPath();
+            for (let i = 0; i < particleCount; i++) {
+                for (let j = i + 1; j < particleCount; j++) {
+                    const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                    if (dist < 160) {
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.07 * (1 - dist / 160)})`;
+                        ctx.lineWidth = 0.6;
+                    }
+                }
+            }
+            ctx.stroke();
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // ==========================================
+        //  DYNAMIC BLOG POST FEED INTERACTION
+        // ==========================================
         const logisticsPosts = [
             {
                 date: "June 28, 2026",
@@ -353,13 +502,11 @@
             }
         ];
 
-        // Engine parsing script to render updates instantly
         const feedContainer = document.getElementById('logistics-blog-feed');
-        logisticsPosts.forEach((post, index) => {
+        logisticsPosts.forEach(post => {
             const article = document.createElement('article');
             article.className = 'content-card';
             article.setAttribute('data-aos', 'fade-up');
-            
             article.innerHTML = `
                 <div class="post-date">${post.date}</div>
                 <h4>${post.title}</h4>
