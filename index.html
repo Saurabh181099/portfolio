@@ -14,7 +14,7 @@
     <style>
         :root {
             --bg-color: #030712; /* Deep space black */
-            --bg-card: rgba(17, 24, 39, 0.7); /* Frosted glass panel base */
+            --bg-card: rgba(17, 24, 39, 0.75); /* Frosted glass panel base */
             --text-main: #F9FAFB;
             --text-muted: #9CA3AF;
             --accent: #10B981; /* High-glow Emerald Green */
@@ -41,7 +41,7 @@
             position: relative;
         }
 
-        /* --- High-End Interactive Canvas Background --- */
+        /* --- Global Supply Chain Animated Canvas Background --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -330,7 +330,7 @@
 </head>
 <body>
 
-    <!-- Logistics Network Particle Canvas Element -->
+    <!-- Supply Chain Transit System Background Matrix -->
     <canvas id="bg-canvas"></canvas>
 
     <!-- Hero Section -->
@@ -421,7 +421,7 @@
         AOS.init({ offset: 120, duration: 900, easing: 'ease-out-quad', once: true });
 
         // ==========================================
-        //  HIGH-END INTERACTIVE NETWORKING CANVAS
+        //  DYNAMIC GLOBAL SUPPLY CHAIN ROUTER CANVAS
         // ==========================================
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
@@ -432,59 +432,96 @@
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            initSupplyChain();
         });
 
-        const particles = [];
-        const particleCount = 45;
+        // Fixed Distribution Nodes (Hubs)
+        let hubs = [];
+        // Animated Cargo Transit Packets
+        let packets = [];
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.radius = Math.random() * 1.5 + 1;
+        function initSupplyChain() {
+            hubs = [];
+            packets = [];
+            
+            // Define static distribution hubs evenly distributed across screen space
+            const baseHubsCount = 12;
+            for (let i = 0; i < baseHubsCount; i++) {
+                hubs.push({
+                    x: Math.random() * (width - 100) + 50,
+                    y: Math.random() * (height - 100) + 50,
+                    radius: Math.random() * 3 + 2
+                });
             }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
-                ctx.fill();
-            }
+
+            // Generate active delivery routes and packet streams
+            hubs.forEach((startHub, i) => {
+                // Link each hub to two adjacent logistics destinations
+                for (let r = 0; r < 2; r++) {
+                    let targetIndex = (i + Math.floor(Math.random() * (hubs.length - 1)) + 1) % hubs.length;
+                    let endHub = hubs[targetIndex];
+                    
+                    // Create multiple pacing packets per route line
+                    packets.push({
+                        start: startHub,
+                        end: endHub,
+                        progress: Math.random(),
+                        speed: Math.random() * 0.003 + 0.0015,
+                        size: Math.random() * 2 + 1.5
+                    });
+                }
+            });
         }
 
-        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
-
-        function animateCanvas() {
+        function drawSupplyChain() {
             ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+
+            // 1. Draw static route transit pipelines
+            ctx.beginPath();
+            packets.forEach(p => {
+                ctx.moveTo(p.start.x, p.start.y);
+                ctx.lineTo(p.end.x, p.end.y);
+            });
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.04)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // 2. Animate sliding logistics freight packets
+            packets.forEach(p => {
+                p.progress += p.speed;
+                if (p.progress >= 1) {
+                    p.progress = 0; // Seamless route recycling
+                }
+
+                // Interpolate linear coordinates along line segments
+                const currentX = p.start.x + (p.end.x - p.start.x) * p.progress;
+                const currentY = p.start.y + (p.end.y - p.start.y) * p.progress;
+
+                ctx.beginPath();
+                ctx.arc(currentX, currentY, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(16, 185, 129, ${0.4 * (1 - Math.abs(0.5 - p.progress) * 2)})`; // Smooth glow fading
+                ctx.fill();
             });
 
-            // Interconnecting global trade node matrix lines
-            ctx.beginPath();
-            for (let i = 0; i < particleCount; i++) {
-                for (let j = i + 1; j < particleCount; j++) {
-                    const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-                    if (dist < 160) {
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(16, 185, 129, ${0.07 * (1 - dist / 160)})`;
-                        ctx.lineWidth = 0.6;
-                    }
-                }
-            }
-            ctx.stroke();
-            requestAnimationFrame(animateCanvas);
+            // 3. Draw static distribution point glow zones
+            hubs.forEach(h => {
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, h.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(31, 41, 55, 0.4)';
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, h.radius - 1, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+                ctx.fill();
+            });
+
+            requestAnimationFrame(drawSupplyChain);
         }
-        animateCanvas();
+
+        // Boot system canvas arrays
+        initSupplyChain();
+        drawSupplyChain();
 
         // ==========================================
         //  DYNAMIC BLOG POST FEED INTERACTION
