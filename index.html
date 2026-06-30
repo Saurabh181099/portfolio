@@ -13,12 +13,13 @@
     
     <style>
         :root {
-            --bg-color: #FAFAFA;
-            --text-main: #1F2937;
-            --text-muted: #4B5563;
-            --accent: #059669; /* Premium Emerald Green */
-            --accent-hover: #047857;
-            --card-bg: #FFFFFF;
+            --bg-color: #0B0F19; /* Deep, modern dark navy/black */
+            --bg-card: #111827;  /* Sleek contrasting charcoal for panels */
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --accent: #10B981; /* High-visibility Neon Emerald Green */
+            --accent-hover: #059669;
+            --border-color: #1F2937;
         }
 
         * {
@@ -54,7 +55,7 @@
             object-fit: cover;
             margin-bottom: 24px;
             border: 3px solid var(--accent);
-            box-shadow: 0 8px 24px rgba(5, 150, 105, 0.2);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
             transition: transform 0.3s ease;
         }
 
@@ -106,7 +107,7 @@
 
         .btn-primary {
             background-color: var(--accent);
-            color: white;
+            color: #0B0F19; /* High-contrast background font text */
             border: none;
         }
 
@@ -116,24 +117,23 @@
         }
 
         .btn-secondary {
-            border: 1px solid #D1D5DB;
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            background: white;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .btn-secondary:hover {
-            background-color: #F3F4F6;
+            background-color: rgba(255, 255, 255, 0.08);
             transform: translateY(-2px);
         }
 
         /* --- Ticker / Stats Section --- */
         .ticker-section {
-            background: white;
-            border-top: 1px solid #E5E7EB;
-            border-bottom: 1px solid #E5E7EB;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             padding: 40px 0;
             margin-bottom: 80px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
 
         .stats-grid {
@@ -155,7 +155,7 @@
             font-weight: 500;
         }
 
-        /* --- Projects Grid --- */
+        /* --- Section Titles --- */
         .section-title {
             font-size: 28px;
             font-weight: 700;
@@ -173,40 +173,38 @@
             border-radius: 2px;
         }
 
-        .projects-grid {
+        /* --- Grid & Layout Components --- */
+        .grid-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 32px;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
 
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid #E5E7EB;
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 32px;
             transition: all 0.3s ease;
         }
 
-        .project-card:hover {
+        .content-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.04);
-            border-color: #CDD5DF;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            border-color: #374151;
         }
 
-        .project-card h4 {
+        .content-card h4 {
             font-size: 22px;
             margin-bottom: 16px;
             color: var(--text-main);
         }
 
-        .project-details {
-            margin-top: 16px;
-        }
-
         .project-detail-item {
             margin-bottom: 12px;
             font-size: 15px;
+            color: var(--text-muted);
         }
 
         .project-detail-item strong {
@@ -215,16 +213,32 @@
             width: 100px;
         }
 
+        /* --- Logistics Custom Feed Section --- */
+        .post-date {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .post-body {
+            color: var(--text-muted);
+            font-size: 15px;
+            white-space: pre-line; /* Keeps line breaks clean */
+        }
+
         /* --- Footer --- */
         footer {
-            background-color: #111827;
-            color: white;
+            background-color: #060911;
+            border-top: 1px solid var(--border-color);
             padding: 60px 0;
             text-align: center;
         }
 
         footer p {
-            color: #9CA3AF;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -240,7 +254,6 @@
     <!-- Hero Section -->
     <header>
         <div class="container" data-aos="fade-up" data-aos-duration="1000">
-            <!-- Updated Direct LinkedIn Image Source -->
             <img src="https://media.licdn.com/dms/image/v2/D4D03AQHphVUcXP1zTw/profile-displayphoto-shrink_200_200/B4DZbsTLzKHQAc-/0/1747721185674?e=1784160000&v=beta&t=W9lgcrg6Td-CuRDjoJPbGvULSMKgrE6HWPg06KV32qA" alt="Saurabh Manoharan" class="avatar">
             
             <div class="tagline">Logistics & Supply Chain Leader</div>
@@ -250,14 +263,13 @@
             </p>
             <div class="cta-group">
                 <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary">Connect on LinkedIn ↗</a>
-                <!-- Direct Instant Download Link -->
                 <a href="Saurabh_Manoharan_Resume.pdf" download="Saurabh_Manoharan_Resume.pdf" class="btn btn-secondary">Download Resume (PDF)</a>
             </div>
         </div>
     </header>
 
     <!-- Metrics Ticker Area -->
-    <section class="ticker-section" data-aos="fade-up" data-aos-delay="200">
+    <section class="ticker-section" data-aos="fade-up">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-card">
@@ -284,36 +296,28 @@
     <main class="container">
         <h2 class="section-title" data-aos="fade-right">Featured Case Studies</h2>
         
-        <div class="projects-grid">
+        <div class="grid-layout">
             <!-- Project 1 -->
-            <div class="project-card" data-aos="fade-up">
+            <div class="content-card" data-aos="fade-up">
                 <h4>Custom End-to-End Inventory & Stock Automation</h4>
-                <div class="project-details">
-                    <div class="project-detail-item"><strong>Challenge:</strong> Manual entry across production and dispatch logs was creating reporting latency and data errors.</div>
-                    <div class="project-detail-item"><strong>Action:</strong> Engineered an automated ecosystem utilizing Excel VBA and MS Access for instant PDF dispatches and live reporting.</div>
-                    <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
-                </div>
+                <div class="project-detail-item"><strong>Challenge:</strong> Manual entry across production and dispatch logs was creating reporting latency and data errors.</div>
+                <div class="project-detail-item"><strong>Action:</strong> Engineered an automated ecosystem utilizing Excel VBA and MS Access for instant PDF dispatches and live reporting.</div>
+                <div class="project-detail-item"><strong>Impact:</strong> Shipped manual reporting down from hours to under 2 minutes, ensuring 100% stock tracking precision.</div>
             </div>
 
             <!-- Project 2 -->
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="content-card" data-aos="fade-up">
                 <h4>Cross-Border EXIM & Multi-Modal Logistics Optimization</h4>
-                <div class="project-details">
-                    <div class="project-detail-item"><strong>Challenge:</strong> Managing high-stakes global trans-border freight without encountering costly port demurrage penalties.</div>
-                    <div class="project-detail-item"><strong>Action:</strong> Managed specialized customs clearances and international documentation frameworks via a unified SharePoint infrastructure.</div>
-                    <div class="project-detail-item"><strong>Impact:</strong> Achieved a 0% compliance delay record and slashed clearing agent communication lag by 35%.</div>
-                </div>
+                <div class="project-detail-item"><strong>Challenge:</strong> Managing high-stakes global trans-border freight without encountering costly port demurrage penalties.</div>
+                <div class="project-detail-item"><strong>Action:</strong> Managed specialized customs clearances and international documentation frameworks via a unified SharePoint infrastructure.</div>
+                <div class="project-detail-item"><strong>Impact:</strong> Achieved a 0% compliance delay record and slashed clearing agent communication lag by 35%.</div>
             </div>
+        </div>
 
-            <!-- Project 3 -->
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                <h4>Regulatory Compliance & SOP Architecture for Specialized Freight</h4>
-                <div class="project-details">
-                    <div class="project-detail-item"><strong>Challenge:</strong> Guaranteeing uncompromised regional compliance workflows for dispatching regulated materials.</div>
-                    <div class="project-detail-item"><strong>Action:</strong> Formulated structured Standard Operating Procedures matching strict national and cross-border explosive safety acts.</div>
-                    <div class="project-detail-item"><strong>Impact:</strong> Maintained a 100% unblemished record across external safety audits and removed 20% of approval friction.</div>
-                </div>
-            </div>
+        <!-- Logistics Live Insights Blog Feed Section -->
+        <h2 class="section-title" data-aos="fade-right" style="margin-top: 60px;">Logistics & Operations Insights</h2>
+        <div id="logistics-blog-feed" class="grid-layout">
+            <!-- Dynamic JavaScript content injects here automatically -->
         </div>
     </main>
 
@@ -322,7 +326,7 @@
         <div class="container">
             <p>Let's optimize your global operations.</p>
             <div class="cta-group">
-                <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary" style="background-color: transparent; border: 1px solid white;">Let's Talk on LinkedIn</a>
+                <a href="https://www.linkedin.com/in/saurabhmanoharan" target="_blank" class="btn btn-primary" style="background-color: transparent; border: 1px solid var(--accent); color: var(--accent);">Let's Talk on LinkedIn</a>
             </div>
         </div>
     </footer>
@@ -330,12 +334,38 @@
     <!-- Initialize Animation Library -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({
-            offset: 120, 
-            delay: 0, 
-            duration: 800, 
-            easing: 'ease-in-out', 
-            once: true 
+        AOS.init({ offset: 120, duration: 800, easing: 'ease-in-out', once: true });
+
+        // ==========================================
+        //  LOGISTICS POSTS MANAGEMENT ENGINE
+        // ==========================================
+        // To add a new article update, just add another object inside this bracket list:
+        const logisticsPosts = [
+            {
+                date: "June 28, 2026",
+                title: "Overcoming Port Demurrage Bottlenecks in Trans-Border Cargo",
+                content: "Delays in multi-modal shipping can cost thousands in unexpected port storage assessments. By implementing cloud-based documentation sharing setups, operational teams can send clearing data hours before the container touches the port gate, preventing administrative holdups entirely."
+            },
+            {
+                date: "May 14, 2026",
+                title: "Why VBA Automation Beats Bulky ERP Workflows for Daily Stock Lists",
+                content: "While major enterprise ERP software tracks overall inventory assets well, they lack the speed required for dynamic on-site operational tracking. Custom Excel scripts paired with localized relational databases can execute sub-second calculations and instant standard-format distributions cleanly without system lag."
+            }
+        ];
+
+        // Engine parsing script to render updates instantly
+        const feedContainer = document.getElementById('logistics-blog-feed');
+        logisticsPosts.forEach((post, index) => {
+            const article = document.createElement('article');
+            article.className = 'content-card';
+            article.setAttribute('data-aos', 'fade-up');
+            
+            article.innerHTML = `
+                <div class="post-date">${post.date}</div>
+                <h4>${post.title}</h4>
+                <p class="post-body">${post.content}</p>
+            `;
+            feedContainer.appendChild(article);
         });
     </script>
 </body>
